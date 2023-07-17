@@ -20,47 +20,64 @@ Output: "accaccacc"*/
 
 public class DecodeString_394 {
     public String decodeString(String s) {
+        // Create a stack to hold characters
         Stack<Character> holderStack = new Stack<>();
-        for(char ch:s.toCharArray()){
-            if(ch !=']')
+
+        // Iterate through each character in the input string
+        for (char ch : s.toCharArray()) {
+            if (ch != ']') {
+                // If the character is not ']', push it to the stack
                 holderStack.push(ch);
-            else{
+            } else {
+                // If the character is ']', it indicates the end of a substring to be decoded
+
+                // Create a StringBuilder to hold the characters of the substring
                 StringBuilder sb = new StringBuilder();
-                while(!holderStack.isEmpty() && Character.isLetter(holderStack.peek()))
-                    sb.insert(0,holderStack.pop());
+
+                // Pop characters from the stack until a non-letter character is encountered
+                while (!holderStack.isEmpty() && Character.isLetter(holderStack.peek())) {
+                    sb.insert(0, holderStack.pop());
+                }
+
+                // Get the decoded substring
                 String sub = sb.toString();
+
+                // Pop the '[' character from the stack
                 holderStack.pop();
+
+                // Create a new StringBuilder to hold the count of repetitions
                 sb = new StringBuilder();
-                while(!holderStack.isEmpty() && Character.isDigit(holderStack.peek()))
-                    sb.insert(0,holderStack.pop());
+
+                // Pop characters from the stack until a non-digit character is encountered
+                while (!holderStack.isEmpty() && Character.isDigit(holderStack.peek())) {
+                    sb.insert(0, holderStack.pop());
+                }
+
+                // Convert the count of repetitions to an integer
                 int count = Integer.valueOf(sb.toString());
-                while(count>0){
-                    for(char subCh:sub.toCharArray())
+
+                // Repeat the decoded substring 'count' number of times
+                while (count > 0) {
+                    for (char subCh : sub.toCharArray()) {
                         holderStack.push(subCh);
+                    }
                     count--;
                 }
             }
         }
+
+        // Create a StringBuilder to hold the final decoded string
         StringBuilder res = new StringBuilder();
-        while(!holderStack.isEmpty() && Character.isLetter(holderStack.peek()))
-            res.insert(0,holderStack.pop());
+
+        // Pop characters from the stack until a non-letter character is encountered
+        while (!holderStack.isEmpty() && Character.isLetter(holderStack.peek())) {
+            res.insert(0, holderStack.pop());
+        }
+
+        // Return the decoded string
         return res.toString();
     }
+
 }
 
-/*
-It initializes a stack named stack to store characters during the decoding process.
-The code iterates over each character c in the input string s.
-If c is not ']', it means it is part of the original string, so it is pushed onto the stack.
-If c is ']', it means we need to decode a substring. The code does the following steps:
-a. It creates a new StringBuilder named sb to store the substring.
-b. While the stack is not empty and the top character is a letter, it pops characters from the stack and inserts them at the beginning of sb.
-c. The resulting substring is stored in the variable sub.
-d. The code pops the '[' character from the stack since it marks the beginning of the substring.
-e. It creates another StringBuilder named sb to store the count of repetitions.
-f. While the stack is not empty and the top character is a digit, it pops characters from the stack and inserts them at the beginning of sb.
-g. The resulting string is converted to an integer using Integer.valueOf and stored in the variable count.
-h. It performs the repetition of the substring by pushing each character of sub back onto the stack count number of times.
-After processing all characters in s, the code fetches the final result from the stack by popping all remaining letters from the stack and inserting them at the beginning of retv, a StringBuilder variable.
-The decoded string is obtained by converting retv to a string using toString() and returned.
- */
+

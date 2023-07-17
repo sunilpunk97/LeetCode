@@ -17,52 +17,32 @@ package com.java.leetcode.Strings;
 //        s consist of printable ASCII characters.
 public class ReverseVowels_345 {
     public String reverseVowels(String s) {
-        char[] chars = s.toCharArray();
-        int left = 0;
-        int right = chars.length - 1;
+        char[] chars = s.toCharArray(); // Convert the input string to a character array
+        int left = 0; // Pointer for the leftmost character
+        int right = chars.length - 1; // Pointer for the rightmost character
 
-        while (left < right) {
-            if (isVowel(chars[left]) && isVowel(chars[right])) {
-                char temp = chars[left];
+        while (left < right) { // Loop until the pointers meet or cross each other
+            if (isVowel(chars[left]) && isVowel(chars[right])) { // If both characters at the pointers are vowels
+                char temp = chars[left]; // Swap the characters
                 chars[left] = chars[right];
                 chars[right] = temp;
-                left++;
+                left++; // Move the pointers towards the center
                 right--;
-            } else if (isVowel(chars[left])) {
-                right--;
-            } else {
-                left++;
+            } else if (isVowel(chars[left])) { // If only the left character is a vowel
+                right--; // Move the right pointer towards the center
+            } else { // If only the right character is a vowel or both are not vowels
+                left++; // Move the left pointer towards the center
             }
         }
 
-        return new String(chars);
+        return new String(chars); // Convert the modified character array back to a string and return
     }
 
     private boolean isVowel(char c) {
-        c = Character.toLowerCase(c);
-        return c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u';
+        c = Character.toLowerCase(c); // Convert the character to lowercase to handle both uppercase and lowercase vowels
+        return c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u'; // Check if the character is a vowel
     }
+
 }
 
-//Algo:
-//        The reverseVowels method takes a string s as input and returns the string with only the vowels reversed.
-//
-//        Convert the string s to a character array called chars to make it easier to manipulate the characters.
-//
-//        Initialize two pointers, left and right, pointing to the start and end of the string, respectively.
-//
-//        Enter a while loop that continues as long as left is less than right.
-//
-//        Inside the loop, check if the character at index left is a vowel and the character at index right is also a vowel.
-//
-//        If both characters are vowels, swap them by using a temporary variable. Then, increment left and decrement right to move closer to the center of the string.
-//
-//        If the character at index left is a vowel but the character at index right is not a vowel, decrement right to skip it and move to the next character.
-//
-//        If the character at index left is not a vowel, increment left to skip it and move to the next character.
-//
-//        Repeat steps 5-8 until left becomes greater than or equal to right.
-//
-//        Convert the modified chars array back to a string using the new String(chars) constructor.
-//
-//        Return the resulting string with the reversed vowels.
+

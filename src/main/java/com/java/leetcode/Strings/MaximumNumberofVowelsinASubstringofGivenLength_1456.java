@@ -11,41 +11,47 @@ package com.java.leetcode.Strings;
 
 public class MaximumNumberofVowelsinASubstringofGivenLength_1456 {
     public int maxVowels(String s, int k) {
+        // Initialize variables to keep track of the current and maximum count of vowels
         int currentVowels = 0;
         int maxVowels = 0;
-        for(int i=0;i<k;i++){
-            if(isVowel(s.charAt(i)))
-                currentVowels++;
-        }
-        maxVowels = currentVowels;
-        for(int i=k;i<s.length();i++){
-            if(isVowel(s.charAt(i))){
+
+        // Iterate through the first window of length k
+        for(int i = 0; i < k; i++) {
+            // If the current character is a vowel, increment the current count of vowels
+            if(isVowel(s.charAt(i))) {
                 currentVowels++;
             }
-            if(isVowel(s.charAt(i-k))){
+        }
+
+        // Set the maximum count of vowels equal to the current count of vowels
+        maxVowels = currentVowels;
+
+        // Slide the window and update the count of vowels
+        for(int i = k; i < s.length(); i++) {
+            // If the current character is a vowel, increment the current count of vowels
+            if(isVowel(s.charAt(i))) {
+                currentVowels++;
+            }
+
+            // If the character at i-k (the leftmost character of the window) is a vowel,
+            // decrement the current count of vowels since it is no longer included in the window
+            if(isVowel(s.charAt(i - k))) {
                 currentVowels--;
             }
-            maxVowels = Math.max(currentVowels,maxVowels);
+
+            // Update the maximum count of vowels by taking the maximum of the current count and the previous maximum
+            maxVowels = Math.max(currentVowels, maxVowels);
         }
+
+        // Return the maximum count of vowels
         return maxVowels;
     }
+
+    // Helper function to check if a character is a vowel
     private boolean isVowel(char c) {
         c = Character.toLowerCase(c);
         return c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u';
     }
+
 }
 
-//Algo:
-//        The maxVowels method takes a string s and an integer k as input and returns the maximum number of vowel letters in any substring of s with length k.
-//
-//        Initialize two variables: maxVowels to keep track of the maximum count of vowels encountered, and currentVowels to store the count of vowels in the current window.
-//
-//        Use a loop to calculate the number of vowels in the first window of size k. Iterate from index 0 to index k-1 of the string s. If the character at the current index is a vowel (determined using the isVowel method), increment currentVowels by 1.
-//
-//        Set maxVowels equal to currentVowels.
-//
-//        Slide the window by iterating from index k to the end of the string s. In each iteration, check if the character at the current index is a vowel and update currentVowels accordingly. Also, check if the character at the index i-k (the first character of the previous window) is a vowel and update currentVowels. This step ensures that the window size remains constant while moving forward.
-//
-//        Update maxVowels by taking the maximum value between maxVowels and currentVowels in each iteration.
-//
-//        After the loop, return maxVowels as the maximum count of vowels in any substring of s with length k.

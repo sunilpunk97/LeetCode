@@ -13,23 +13,30 @@ package com.java.leetcode.Strings;
 //        Output: false
 
 public class IsSubSequence_392 {
-    //basic check if s is nothing then its always true.
-    //we traverse through all the char of string t one by one
-    //for each char we check whether that character is equal to the first char of string s.
-    //if it matches then we increment the s_pointer so that now we have to check whether the secong char of s is present.
-    //when the spointer equals the length of the string s then we return true, meaning all the string are present and also in the same order.
-    //order of s should be maintained in t.
     public boolean isSubsequence(String s, String t) {
-        if(s.length() == 0)
+        // If the subsequence string s is empty, it is considered a subsequence of any string
+        if (s.length() == 0) {
             return true;
-        int s_pointer = 0;
-        for(int i=0;i<t.length();i++){
-            if(t.charAt(i) == s.charAt(s_pointer))
-                s_pointer++;
-            if(s_pointer == s.length()){
+        }
+
+        // Initialize a pointer for the subsequence string s
+        int sPointer = 0;
+
+        // Iterate through the target string t
+        for (int i = 0; i < t.length(); i++) {
+            // If the current character in t matches the character in s at the current pointer position, move the pointer forward
+            if (t.charAt(i) == s.charAt(sPointer)) {
+                sPointer++;
+            }
+
+            // If the pointer reaches the end of the subsequence string s, it means that all characters in s have been found in t in the same order
+            if (sPointer == s.length()) {
                 return true;
             }
         }
+
+        // If the loop finishes without finding all characters in the subsequence string s, return false
         return false;
     }
+
 }

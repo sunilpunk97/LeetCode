@@ -2,25 +2,34 @@ package com.java.leetcode.Arrays;
 
 public class ContainerWithMostWater_11 {
     public int maxArea(int[] height) {
-        //We use 2 pointer technique
-        //Assign left and right ptrs to the first and last position
-        //We then move inwards calculating max area of each boundary
-        //we calculate max area by calculating the smaller height and multiplying it with the boundary length(right-left)
-        //we keep on updating the max area in each loop with math.max
-        //If height[left] is higher we increment left
-        //if height[right] is higher than left we decrement right.
+        // Initialize two pointers, left and right, representing the left and right boundaries of the container
         int left = 0;
         int right = height.length - 1;
+
+        // Initialize a variable to store the maximum area encountered
         int maxArea = 0;
+
+        // Continue the loop while the left pointer is less than the right pointer
         while (left < right) {
+            // Calculate the height of the container as the minimum height between the left and right boundaries
             int h = Math.min(height[left], height[right]);
-            maxArea = Math.max(maxArea, (right - left) * h);
+
+            // Calculate the area of the container as the width (right - left) multiplied by the height (h)
+            int area = (right - left) * h;
+
+            // Update the maximum area if the current area is greater
+            maxArea = Math.max(maxArea, area);
+
+            // Move the pointer that corresponds to the smaller height inward
             if (height[left] < height[right]) {
                 left++;
             } else {
                 right--;
             }
         }
+
+        // Return the maximum area encountered
         return maxArea;
     }
+
 }

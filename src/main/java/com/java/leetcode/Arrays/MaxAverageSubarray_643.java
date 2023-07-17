@@ -14,19 +14,30 @@ package com.java.leetcode.Arrays;
 //        Output: 5.00000
 public class MaxAverageSubarray_643 {
     public double findMaxAverage(int[] nums, int k) {
+        // Initialize a variable to store the sum of the first k elements
         int sum = 0;
+
+        // Calculate the sum of the first k elements
         for (int i = 0; i < k; i++) {
             sum += nums[i];
         }
 
+        // Initialize a variable to store the maximum sum encountered
         int maxSum = sum;
+
+        // Iterate through the array starting from index k
         for (int i = k; i < nums.length; i++) {
+            // Update the sum by adding the current number and subtracting the number at index i - k (i.e., removing the oldest number from the sum)
             sum += nums[i] - nums[i - k];
+
+            // Update the maximum sum if the current sum is greater
             maxSum = Math.max(maxSum, sum);
         }
 
+        // Calculate and return the maximum average by dividing the maximum sum by k
         return (double) maxSum / k;
     }
+
 }
 
 //    The findMaxAverage method takes an integer array nums and an integer k as input and returns the maximum average value of a contiguous subarray of length k.

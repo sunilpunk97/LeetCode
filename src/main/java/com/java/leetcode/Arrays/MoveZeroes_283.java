@@ -5,26 +5,23 @@ package com.java.leetcode.Arrays;
 
 public class MoveZeroes_283 {
     public void moveZeroes(int[] nums) {
+        // Initialize an index to keep track of the position to overwrite non-zero numbers
         int index = 0;
-        for(int i=0; i< nums.length;i++){
-            if(nums[i] != 0)
+
+        // Iterate through the array
+        for(int i = 0; i < nums.length; i++) {
+            // If the current number is not zero, move it to the next available position at index and increment the index
+            if(nums[i] != 0) {
                 nums[index++] = nums[i];
+            }
         }
-        for(int i= index; i<nums.length;i++){
+
+        // After moving all non-zero numbers to the beginning, fill the remaining positions with zeros
+        for(int i = index; i < nums.length; i++) {
             nums[i] = 0;
         }
     }
+
 }
 
-//Alg0:
-//        Initialize an integer variable index to 0. This variable will be used to keep track of the index where the next non-zero element should be placed.
-//
-//        Iterate through each element of the nums array using a for loop.
-//
-//        For each element, check if it is not equal to 0. If it is not, move it to the position at index index in the array, and increment index by 1.
-//
-//        After the loop completes, all non-zero elements of the array will have been moved to the beginning of the array, and index will point to the next available position in the array.
-//
-//        Iterate through the remaining elements of the array (from index index to the end of the array)
-//        and set them to 0. This step effectively moves all the zeroes in the array to the
-//        end, while preserving the order of the non-zero elements.
+

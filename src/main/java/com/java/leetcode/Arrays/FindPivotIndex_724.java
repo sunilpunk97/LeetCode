@@ -21,31 +21,32 @@ package com.java.leetcode.Arrays;
 //        There is no index that satisfies the conditions in the problem statement.
 
 public class FindPivotIndex_724 {
-    //calculate total sum of the full array
-    //maintain left sum to sum up all the elements
-    //since we should not include the pivot index value in left sum we start from index 1 and calculate total left sum by adding all the prev element
-    //then in each loop check with the formula.
     public int pivotIndex(int[] nums) {
+        // Calculate the total sum of all elements in the array
         int totalSum = 0;
-        for(int num:nums){
+        for(int num : nums) {
             totalSum += num;
         }
+
+        // Initialize a variable to keep track of the left sum
         int leftSum = 0;
-        for(int i=0;i<nums.length;i++){
-            if(i!=0)
-                leftSum += nums[i-1];
-            if(totalSum -leftSum-nums[i] == leftSum){
-                return i;
+
+        // Iterate through the array
+        for(int i = 0; i < nums.length; i++) {
+            // If the current index is not the first element, update the left sum by adding the previous element
+            if(i != 0) {
+                leftSum += nums[i - 1];
+            }
+
+            // Check if the total sum minus the left sum minus the current element is equal to the left sum
+            if(totalSum - leftSum - nums[i] == leftSum) {
+                return i; // Return the current index as the pivot index
             }
         }
-        return -1;
+
+        return -1; // No pivot index found
     }
+
 }
 
-//    Initialize a variable totalSum to zero to store the sum of all elements in the array.
-//        Traverse the array and add each element to totalSum.
-//        Initialize a variable leftSum to zero to store the sum of elements to the left of the current index.
-//        Traverse the array again and for each index:
-//        a. If the current index is not the first element, add the element to the left of the current index to leftSum.
-//        b. Check if the difference between the total sum of the array and the sum of elements to the left and right of the current index is equal to the sum of elements to the left of the current index. If it is, return the current index.
-//        If no pivot element is found, return -1.
+

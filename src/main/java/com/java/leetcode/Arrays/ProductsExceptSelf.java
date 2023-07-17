@@ -15,31 +15,32 @@ package com.java.leetcode.Arrays;
 //        Output: [0,0,9,0,0]
 public class ProductsExceptSelf {
     public int[] productExceptSelf(int[] nums) {
-        int length = nums.length;
-        int[] output = new int[length];
-        int[] forward = new int[length];
-        int[] backward = new int[length];
-        forward[0] = 1;
-        backward[length-1] = 1;
+        int length = nums.length; // Get the length of the input array
+        int[] output = new int[length]; // Create an output array to store the results
+        int[] forward = new int[length]; // Create an array to store the forward products
+        int[] backward = new int[length]; // Create an array to store the backward products
+
+        forward[0] = 1; // Initialize the first element of the forward array as 1 since there are no elements before it
+        backward[length-1] = 1; // Initialize the last element of the backward array as 1 since there are no elements after it
+
+        // Calculate the forward products
         for(int i=1;i<length;i++){
-            forward[i] = nums[i-1] * forward[i-1];
+            forward[i] = nums[i-1] * forward[i-1]; // Multiply the previous forward product with the corresponding element in the input array
         }
-        for(int i=length-1;i>=0;i--){
-            backward[i] = nums[i+1] * backward[i+1];
+
+        // Calculate the backward products
+        for(int i=length-2;i>=0;i--){
+            backward[i] = nums[i+1] * backward[i+1]; // Multiply the next backward product with the corresponding element in the input array
         }
+
+        // Calculate the final output by multiplying the corresponding forward and backward products
         for(int i=0;i<length;i++){
             output[i] = forward[i] * backward[i];
         }
 
-        return output;
-
+        return output; // Return the resulting array with products except self
     }
+
 }
 
-//    Get the length of the nums array and initialize an output array of the same length.
-//    Initialize two additional arrays, forward and backward, both of the same length as nums.
-//    Set the first element of forward to 1, and the last element of backward to 1.
-//   Use a for loop to calculate the product of all the elements before the current element in nums and store them in forward.
-//    Use another for loop to calculate the product of all the elements after the current element in nums and store them in backward.
-//      Use a third for loop to calculate the product of the corresponding elements in forward and backward and store them in the output array.
-//    Return the output array.
+
